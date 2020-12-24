@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import Card from "./components/Card";
+import CardReact from "./components/Card";
 import { Difficulty, fetchQuiz, QuestionsState } from "./components/API";
-import { GlobalStyle } from "./App.styles";
+
+import { Button, Card } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import TextInput from "./TextInput";
 // import { Counter } from "./Counter";
 const TOTAL = 10;
@@ -58,19 +60,23 @@ const App: React.FC = () => {
 
   return (
     <>
-      <GlobalStyle />
-      <div className="App">
+      <div className="d-flex justify-content-center flex-column align-items-center">
         <h1>QUIZ GAME</h1>
         {gameOver || userAnswers.length === TOTAL ? (
-          <button className="startQuiz" onClick={startHandler}>
+          <Button
+            className="startQuiz"
+            onClick={startHandler}
+            variant="success"
+          >
             START
-          </button>
+          </Button>
         ) : null}
 
         {!gameOver ? <p className="scores">Score:{score}</p> : null}
         {loading && <p>Loading Questions ......</p>}
+
         {!loading && !gameOver && (
-          <Card
+          <CardReact
             questionNo={number + 1}
             totalQuestion={TOTAL}
             question={questions[number].question}
@@ -79,13 +85,14 @@ const App: React.FC = () => {
             callback={checkAns}
           />
         )}
+
         {!loading &&
         !gameOver &&
         userAnswers.length === number + 1 &&
         number !== TOTAL - 1 ? (
-          <button className="nextQuiz" onClick={next}>
+          <Button className="nextQuiz" onClick={next} variant="primary">
             NEXT
-          </button>
+          </Button>
         ) : null}
       </div>
     </>

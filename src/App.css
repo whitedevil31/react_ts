@@ -13,6 +13,10 @@
   }
 }
 
+.customButton {
+  width: 480px;
+  height: 45px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

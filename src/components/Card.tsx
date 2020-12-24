@@ -20,7 +20,7 @@ const CardReact: React.FC<Props> = ({
   questionNo,
   totalQuestion,
 }) => (
-  <div className="card w-75 h-50 d-inline-block mt-40">
+  <div className="card w-75 h-50 d-inline-block card mt-5">
     <div className="card-body">
       <div className="card-header text-center">
         Question: {questionNo} / {totalQuestion}

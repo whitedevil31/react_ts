@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CardReact from "./components/Card";
 import { Difficulty, fetchQuiz, QuestionsState } from "./components/API";
+import { GlobalStyle } from "./App.styles";
 
 import { Button, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +21,7 @@ const App: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
+  const [endCard, setEndCard] = useState(false);
 
   const startHandler = async () => {
     setLoading(true);
@@ -60,11 +62,15 @@ const App: React.FC = () => {
 
   return (
     <>
+      <GlobalStyle />
       <div className="d-flex justify-content-center flex-column align-items-center">
-        <h1>QUIZ GAME</h1>
+        <h1 className="mt-3 !important">QUIZ GAME</h1>
+        {!gameOver && !loading && (
+          <h4 className="mt-5 text-light bg-dark">Your Score: {score}</h4>
+        )}
         {gameOver || userAnswers.length === TOTAL ? (
           <Button
-            className="startQuiz"
+            className="start mt-3 btn-lg"
             onClick={startHandler}
             variant="success"
           >
@@ -72,10 +78,13 @@ const App: React.FC = () => {
           </Button>
         ) : null}
 
-        {!gameOver ? <p className="scores">Score:{score}</p> : null}
-        {loading && <p>Loading Questions ......</p>}
+        {loading && (
+          <h4 className="text-warning mt-5 bg-dark">
+            Loading Questions for you ......
+          </h4>
+        )}
 
-        {!loading && !gameOver && (
+        {!loading && !gameOver && number <= TOTAL && (
           <CardReact
             questionNo={number + 1}
             totalQuestion={TOTAL}
@@ -90,10 +99,15 @@ const App: React.FC = () => {
         !gameOver &&
         userAnswers.length === number + 1 &&
         number !== TOTAL - 1 ? (
-          <Button className="nextQuiz" onClick={next} variant="primary">
+          <Button className="btn-success btn-lg next mt-4" onClick={next}>
             NEXT
           </Button>
         ) : null}
+        {userAnswers.length > 10 && (
+          <div>
+            <h1 className="text-warning mt-5">Game Over !</h1>
+          </div>
+        )}
       </div>
     </>
   );

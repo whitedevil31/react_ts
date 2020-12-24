@@ -12,10 +12,24 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.card {
+  min-width: 500px;
+}
+.start {
+  min-width: 100px;
+}
 .customButton {
-  width: 480px;
+  width: 450px;
   height: 45px;
+}
+.customButton:disabled {
+  border: 1px solid #999999;
+  background-color: #ffff66;
+  color: #666666;
+}
+.next {
+  min-width: 100px;
+  margin-top: 20px;
 }
 .App-header {
   background-color: #282c34;
